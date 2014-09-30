@@ -1,0 +1,51 @@
+{
+    "name": "drwrf/mismatch-model",
+    "description": "A simple library for complex types.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "♥",
+            "email": "hi@drwrf.com"
+        }
+    ],
+
+    "scripts": {
+        "test": "phpunit test",
+        "doc": "phpdoc"
+    },
+
+    "autoload": {
+        "psr-4": {
+            "Mismatch\\Model\\": [ "lib" ]
+        }
+    },
+
+    "autoload-dev": {
+        "psr-4": {
+            "Mismatch\\Model\\": [ "test" ]
+        }
+    },
+
+    "require": {
+        "php": ">=5.4",
+        "pimple/pimple": "3.0.*@dev"
+    },
+
+    "require-dev": {
+        "phpunit/phpunit": "4.0.*@dev",
+        "phpunit/php-code-coverage": "2.0.*@dev",
+        "phpunit/phpunit-mock-objects": "2.0.*@dev",
+        "mockery/mockery": "0.9",
+        "d11wtq/boris": "dev-master"
+    },
+
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.0.x-dev"
+        }
+    },
+
+    "archive": {
+        "exclude": ["vendor", "test"]
+    }
+}
