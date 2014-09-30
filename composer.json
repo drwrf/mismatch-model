@@ -16,13 +16,13 @@
 
     "autoload": {
         "psr-4": {
-            "Mismatch\\Model\\": [ "lib" ]
+            "Mismatch\\": [ "lib" ]
         }
     },
 
     "autoload-dev": {
         "psr-4": {
-            "Mismatch\\Model\\": [ "test" ]
+            "Mismatch\\": [ "test" ]
         }
     },
 
