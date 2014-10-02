@@ -4,7 +4,7 @@ namespace Mismatch;
 
 use Mismatch\Model\Metadata;
 use Mismatch\Model\Dataset;
-use Mismatch\Model\AttributeBag;
+use Mismatch\Model\Attrs;
 use InvalidArgumentException;
 
 trait Model
@@ -27,7 +27,7 @@ trait Model
     public static function usingModel($m)
     {
         $m['attrs'] = function($m) {
-            return new AttributeBag($m);
+            return new Attrs($m);
         };
     }
 
@@ -204,7 +204,7 @@ trait Model
     }
 
     /**
-     * Returns whether or not the attribute has changed on the model.
+     * Returns whether or not the value has changed on the model.
      *
      * @param   string  $name
      * @return  bool
@@ -218,7 +218,7 @@ trait Model
      * Returns the original and changed value on a model.
      *
      * @param  string  $name
-     * @return array($old, $new)|null
+     * @return [$old, $new]|null
      */
     public function diff($name)
     {
@@ -226,6 +226,8 @@ trait Model
     }
 
     /**
+     * Whether or not the model is persisted.
+     *
      * @return  bool
      */
     public function isPersisted()
@@ -236,7 +238,7 @@ trait Model
     /**
      * Returns an attribute instance for this model.
      *
-     * @return  Mismatch\Attr\AttrInterface
+     * @return  AttrInterface
      */
     private function attr($name)
     {
