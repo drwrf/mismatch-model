@@ -1,0 +1,10 @@
+<?php
+
+require_once 'vendor/autoload.php';
+
+if (file_exists(getcwd() . '/.borisrc.local')) {
+    require_once getcwd() . '/.borisrc.local';
+}
+
+$boris = new \Boris\Boris('mismatch> ');
+$boris->start();
