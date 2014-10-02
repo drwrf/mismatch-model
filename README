@@ -11,3 +11,28 @@
         A   S I M P L E   L I B R A R Y   F O R   C O M P L E X   T Y P E S
 
          ╚═════════════════════════════════════════════════════════════╝
+
+          The goal of Mismatch\Model is to make building and modelling
+          your domain dead simple. While you can quickly create models
+          with it, it remains backend agnostic—allowing you to manage
+          your datasource.
+
+          Let's take a look.
+
+            <?php
+
+            namespace Model;
+
+            use Mismatch;
+
+            class User
+            {
+                use Mismatch\Model;
+
+                public function init($m)
+                {
+                    $m->id        = 'Integer';
+                    $m->name      = 'String';
+                    $m->email     = 'Email';
+                }
+            }
