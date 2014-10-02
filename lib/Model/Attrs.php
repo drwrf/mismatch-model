@@ -1,11 +1,20 @@
 <?php
 
+/**
+ * This file is part of Mismatch.
+ *
+ * @author   ♥ <hi@drwrf.com>
+ * @license  MIT
+ */
 namespace Mismatch\Model;
 
 use InvalidArgumentException;
 use IteratorAggregate;
 use ArrayIterator;
 
+/**
+ * Manages access to a model's attributes.
+ */
 class Attrs implements IteratorAggregate
 {
     /**

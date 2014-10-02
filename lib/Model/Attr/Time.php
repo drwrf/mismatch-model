@@ -1,14 +1,23 @@
 <?php
 
+/**
+ * This file is part of Mismatch.
+ *
+ * @author   ♥ <hi@drwrf.com>
+ * @license  MIT
+ */
 namespace Mismatch\Model\Attr;
 
 use DateTime;
 use DateTimeZone as TZ;
 
+/**
+ * A type for time attributes.
+ */
 class Time extends Primitive
 {
     /**
-     * @var  mixed  A valid Datetime::__construct argument
+     * {@inheritDoc}
      */
     protected $default = 'now';
 

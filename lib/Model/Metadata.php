@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * This file is part of Mismatch.
+ *
+ * @author   ♥ <hi@drwrf.com>
+ * @license  MIT
+ */
 namespace Mismatch\Model;
 
 use Pimple\Container;
@@ -112,6 +118,7 @@ class Metadata extends Container
     /**
      * Returns an attribute on the Metadata instance.
      *
+     * @param   string  $name
      * @return  Attr/AttrInterface
      */
     public function __get($name)

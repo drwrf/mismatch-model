@@ -1,7 +1,16 @@
 <?php
 
+/**
+ * This file is part of Mismatch.
+ *
+ * @author   ♥ <hi@drwrf.com>
+ * @license  MIT
+ */
 namespace Mismatch\Model\Attr;
 
+/**
+ * Interface that all Mismatch attributes must adhere to.
+ */
 interface AttrInterface
 {
     /**

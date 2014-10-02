@@ -1,9 +1,18 @@
 <?php
 
+/**
+ * This file is part of Mismatch.
+ *
+ * @author   ♥ <hi@drwrf.com>
+ * @license  MIT
+ */
 namespace Mismatch\Model\Attr;
 
 use InvalidArgumentException;
 
+/**
+ * A helpful base class for all attributes.
+ */
 abstract class Attr implements AttrInterface
 {
     /**

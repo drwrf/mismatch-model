@@ -1,7 +1,16 @@
 <?php
 
+/**
+ * This file is part of Mismatch.
+ *
+ * @author   ♥ <hi@drwrf.com>
+ * @license  MIT
+ */
 namespace Mismatch\Model;
 
+/**
+ * Holds the data for a model.
+ */
 class Dataset
 {
     /**
@@ -118,6 +127,7 @@ class Dataset
     /**
      * Returns the diff of a value.
      *
+     * @param   string  $name
      * @return  array|null
      */
     public function diff($name)

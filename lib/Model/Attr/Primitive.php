@@ -1,7 +1,16 @@
 <?php
 
+/**
+ * This file is part of Mismatch.
+ *
+ * @author   ♥ <hi@drwrf.com>
+ * @license  MIT
+ */
 namespace Mismatch\Model\Attr;
 
+/**
+ * A helpful base class for attributes that represent primitive types.
+ */
 abstract class Primitive extends Attr
 {
     /**
