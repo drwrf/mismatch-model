@@ -28,12 +28,12 @@
 
             class User
             {
-                use Mismatch\Model;
+              use Mismatch\Model;
 
-                public function init($m)
-                {
-                    $m->id        = 'Integer';
-                    $m->name      = 'String';
-                    $m->email     = 'Email';
-                }
+              public function init($m)
+              {
+                $m->id        = 'Integer';
+                $m->name      = 'String';
+                $m->email     = 'Email';
+              }
             }
