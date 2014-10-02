@@ -29,6 +29,11 @@ class Dataset
     private $persisted = false;
 
     /**
+     * @var  bool  Whether or not the dataset has been destroyed.
+     */
+    private $destroyed = false;
+
+    /**
      * Constructor.
      *
      * @param  array  $data  The original set of data for the dataset.
@@ -161,6 +166,16 @@ class Dataset
     }
 
     /**
+     * Returns whether or not the dataset has changes.
+     *
+     * @return bool
+     */
+    public function isChanged()
+    {
+        return (bool) $this->changes;
+    }
+
+    /**
      * Marks the dataset as persisted.
      */
     public function markPersisted()
@@ -172,5 +187,37 @@ class Dataset
         $this->data = array_merge($this->data, $this->changes);
 
         return $this;
+    }
+
+    /**
+     * Returns whether or not the dataset is persisted.
+     *
+     * @return  bool
+     */
+    public function isPersisted()
+    {
+        return $this->persisted;
+    }
+
+    /**
+     * Marks the dataset as destroyed.
+     */
+    public function markDestroyed()
+    {
+        $this->destroyed = true;
+        $this->data = [];
+        $this->changes = [];
+
+        return $this;
+    }
+
+    /**
+     * Returns whether or not the dataset is destroyed.
+     *
+     * @return  bool
+     */
+    public function isDestroyed()
+    {
+        return $this->destroyed;
     }
 }
