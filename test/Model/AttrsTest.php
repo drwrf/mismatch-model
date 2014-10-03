@@ -38,6 +38,16 @@ class AttrsTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Mismatch\Model\Attr\Integer', $attr);
     }
 
+    public function test_get_remainsCached()
+    {
+        $attr1 = $this->subject->get('integer');
+        $attr2 = $this->subject->get('integer');
+
+        $this->assertInstanceOf('Mismatch\Model\Attr\Integer', $attr1);
+        $this->assertInstanceOf('Mismatch\Model\Attr\Integer', $attr2);
+        $this->assertSame($attr1, $attr2);
+    }
+
     public function test_get_typeCallback()
     {
         Attrs::registerType('Callback', function() {

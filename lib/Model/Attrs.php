@@ -1,7 +1,5 @@
 <?php
 
-use Mismatch\DB;
-
 /**
  * This file is part of Mismatch.
  *
@@ -10,6 +8,7 @@ use Mismatch\DB;
  */
 namespace Mismatch\Model;
 
+use Mismatch\Model\Attr\AttrInterface;
 use InvalidArgumentException;
 use IteratorAggregate;
 use ArrayIterator;
