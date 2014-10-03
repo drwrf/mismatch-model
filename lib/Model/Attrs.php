@@ -1,5 +1,7 @@
 <?php
 
+use Mismatch\DB;
+
 /**
  * This file is part of Mismatch.
  *
@@ -154,6 +156,12 @@ class Attrs implements IteratorAggregate
     {
         $opts = $this->parseOpts($name);
         $class = $opts['type'];
+
+        // Allow types to be factories that can generate instances.
+        // This allows more robust customization than simple instances.
+        if (is_callable($opts['type'])) {
+            return call_user_func($name, $opts);
+        }
 
         return new $class($name, $opts);
     }
