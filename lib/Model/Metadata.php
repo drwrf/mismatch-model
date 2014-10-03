@@ -70,6 +70,14 @@ class Metadata extends Container
     }
 
     /**
+     * Resets all metadata instances.
+     */
+    public static function reset()
+    {
+        static::$instances = [];
+    }
+
+    /**
      * @var  ReflectionClass
      */
     private $class;
