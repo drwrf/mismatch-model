@@ -11,6 +11,7 @@ namespace Mismatch;
 use Mismatch\Model\Metadata;
 use Mismatch\Model\Dataset;
 use Mismatch\Model\Attrs;
+use Mismatch\Model\Attr\Primary;
 use InvalidArgumentException;
 
 /**
@@ -96,6 +97,16 @@ trait Model
     {
         $m['attrs'] = function($m) {
             return new Attrs($m);
+        };
+
+        $m['pk'] = function($m) {
+            foreach ($m['attrs'] as $attr) {
+                if ($attr instanceof Primary) {
+                    return $attr;
+                }
+            }
+
+            throw new DomainException();
         };
     }
 
@@ -230,6 +241,16 @@ trait Model
     public function __toString()
     {
         return sprintf('%s:%s', get_class($this), md5(spl_object_hash($this)));
+    }
+
+    /**
+     * Returns the id of the model, should it exists.
+     *
+     * @return  mixed
+     */
+    public function id()
+    {
+        return $this->read(static::metadata()['pk']->name);
     }
 
     /**

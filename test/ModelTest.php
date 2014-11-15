@@ -52,6 +52,12 @@ class ModelTest extends \PHPUnit_Framework_TestCase
         $this->subject->firstName = null;
         $this->assertTrue(isset($this->subject->firstName));
     }
+
+    public function test_id_returnsValue()
+    {
+        $this->subject->id = '1';
+        $this->assertEquals('1', $this->subject->id());
+    }
 }
 
 namespace Mismatch\Model;
@@ -61,6 +67,11 @@ use Mismatch;
 class Mock
 {
     use Mismatch\Model;
+
+    public static function init($m)
+    {
+        $m->id = 'Primary';
+    }
 
     public function getFullName()
     {
