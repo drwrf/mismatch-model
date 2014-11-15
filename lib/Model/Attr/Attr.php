@@ -54,20 +54,6 @@ abstract class Attr implements AttrInterface
     protected $serialize = AttrInterface::SERIALIZE_NONE;
 
     /**
-     * The parent type, if this is a child of a type.
-     *
-     * @var  null|Mismatch\Model\Attr\AttrInterface
-     */
-    protected $parent;
-
-    /**
-     * A type for each value in the set, in the case of proxies.
-     *
-     * @var  null|Mismatch\Model\Attr\AttrInterface
-     */
-    protected $each;
-
-    /**
      * The metadata of the model owning this attribute.
      *
      * @var  Mismatch\Model\Metadata

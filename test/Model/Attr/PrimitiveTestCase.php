@@ -33,6 +33,7 @@ trait PrimitiveTestCase
             'default' => function () use ($default) {
                 return $default;
             },
+            'nullable' => false,
         ]);
 
         $this->assertSame($default, $subject->read(null, null));
@@ -85,6 +86,7 @@ trait PrimitiveTestCase
     {
         $default = new StdClass();
         $subject = $this->createSubject('test', [
+            'nullable' => false,
             'default' => function () use ($default) {
                 return $default;
             },

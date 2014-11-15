@@ -184,7 +184,7 @@ class Attrs implements IteratorAggregate
             throw new InvalidArgumentException();
         }
 
-        $pattern = "/^(?<type>[\w\\\]+)(\[(?<each>[\w\\\]+)\])?(?<null>\?)?$/";
+        $pattern = "/^(?<type>[\w\\\]+)(?<null>\?)?$/";
 
         if (false === preg_match($pattern, $opts['type'], $matches)) {
             throw new InvalidArgumentException();
@@ -192,12 +192,6 @@ class Attrs implements IteratorAggregate
 
         // Resolve the type with the already declared types.
         $opts['type'] = $this->resolveType($matches['type']);
-
-        // We can parse types that include sub-types, like "Foo[Bar]".
-        // This is useful for types that return a list of types.
-        if (!empty($matches['each'])) {
-            $opts['each'] = $this->resolveType($matches['each']);
-        }
 
         // Parse strings like "Foo" or "Foo?". A question mark at
         // the end of a string indicates the type is nullable.
