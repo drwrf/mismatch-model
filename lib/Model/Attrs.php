@@ -41,6 +41,23 @@ class Attrs implements IteratorAggregate
     }
 
     /**
+     * Resolves a type name to a class.
+     *
+     * If the class exists it is returned, otherwise null is returned.
+     *
+     * @param  string       $type
+     * @return string|null
+     */
+    public static function resolveType($type)
+    {
+        $type = isset(static::$types[$type]) ? static::$types[$type] : $type;
+
+        if ($type && class_exists($type)) {
+            return $type;
+        }
+    }
+
+    /**
      * Returns the list of available types, by name.
      *
      * @return  array
@@ -168,21 +185,9 @@ class Attrs implements IteratorAggregate
         }
 
         $opts = $this->parseType($opts);
+        $opts['metadata'] = $this->metadata;
 
-        // We want to eventually build up the type's child if it
-        // has one. Let's parse it out as well.
-        if (!empty($opts['each'])) {
-            // Build up the child type first, so the parent
-            // can have access to it as soon as its constructed.
-            $opts['each'] = new $opts['each']([
-                'metadata' => $this->metadata,
-            ]);
-        }
-
-        // Build up the type
-        return new $opts['type']($name, array_merge($opts, [
-            'metadata' => $this->metadata,
-        ]));
+        return new $opts['type']($name, $opts);
     }
 
     /**
@@ -202,12 +207,12 @@ class Attrs implements IteratorAggregate
         }
 
         // Resolve the type with the already declared types.
-        $opts['type'] = $this->resolveType($matches['type']);
+        $opts['type'] = static::resolveType($matches['type']);
 
         // We can parse types that include sub-types, like "Foo[Bar]".
         // This is useful for types that return a list of types.
         if (!empty($matches['each'])) {
-            $opts['each'] = $this->resolveType($matches['each']);
+            $opts['each'] = static::resolveType($matches['each']);
         }
 
         // Parse strings like "Foo" or "Foo?". A question mark at
@@ -217,14 +222,5 @@ class Attrs implements IteratorAggregate
         }
 
         return $opts;
-    }
-
-    /**
-     * @param  string  $type
-     * @return string
-     */
-    private function resolveType($type)
-    {
-        return isset(static::$types[$type]) ? static::$types[$type] : $type;
     }
 }

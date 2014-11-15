@@ -45,12 +45,4 @@ class AttrsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('integer', $attr->name);
         $this->assertEquals('integer', $attr->key);
     }
-
-    public function test_get_withSet()
-    {
-        $attr = $this->subject->get('set');
-
-        $this->assertInstanceOf('Mismatch\Model\Attr\Set', $attr);
-        $this->assertInstanceOf('Mismatch\Model\Attr\Integer', $attr->each);
-    }
 }

@@ -23,20 +23,6 @@ class Set extends Primitive
      */
     public function cast($values)
     {
-        if (!$this->each) {
-            return (array) $values;
-        }
-
-        $ret = [];
-
-        foreach ($values as $value) {
-            if ($this->each) {
-                $value = $this->each->cast($value);
-            }
-
-            $ret[] = $value;
-        }
-
-        return $ret;
+        return (array) $values;
     }
 }
