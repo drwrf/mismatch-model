@@ -22,6 +22,7 @@ class Attrs implements IteratorAggregate
      * @var  array
      */
     private static $types = [
+        'Primary' => 'Mismatch\\Model\\Attr\\Primary',
         'Integer' => 'Mismatch\\Model\\Attr\\Integer',
         'Float'   => 'Mismatch\\Model\\Attr\\Float',
         'String'  => 'Mismatch\\Model\\Attr\\String',
