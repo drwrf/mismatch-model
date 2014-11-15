@@ -55,6 +55,7 @@ class ModelTest extends \PHPUnit_Framework_TestCase
 
     public function test_id_returnsValue()
     {
+        $this->assertNull($this->subject->id());
         $this->subject->id = '1';
         $this->assertEquals('1', $this->subject->id());
     }
