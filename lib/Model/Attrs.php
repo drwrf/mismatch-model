@@ -8,6 +8,7 @@
  */
 namespace Mismatch\Model;
 
+use Mismatch\Model\Attr\AttrInterface;
 use InvalidArgumentException;
 use IteratorAggregate;
 use ArrayIterator;
@@ -32,8 +33,12 @@ class Attrs implements IteratorAggregate
     /**
      * Registers a type.
      *
-     * @param  string  $name
-     * @param  string  $class
+     * Types can either be a simple string (which is assumed
+     * to be a valid class name) or a callable, which will
+     * be called with the name and options of the new type.
+     *
+     * @param  string          $name
+     * @param  string|Closure  $class
      */
     public static function registerType($name, $class)
     {
@@ -167,8 +172,15 @@ class Attrs implements IteratorAggregate
             unset($opts[key($opts)]);
         }
 
-        $opts = $this->parseType($opts);
-        $opts['metadata'] = $this->metadata;
+        $opts = array_merge($this->parseType($opts), [
+            'metadata' => $this->metadata
+        ]);
+
+        // Allow types to be factories that can generate instances.
+        // This allows more robust customization than simple instances.
+        if (is_callable($opts['type'])) {
+            return call_user_func($opts['type'], $name, $opts);
+        }
 
         // Build up the type
         return new $opts['type']($name, $opts);
