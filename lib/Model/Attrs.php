@@ -152,17 +152,6 @@ class Attrs implements IteratorAggregate
      */
     private function buildAttr($name)
     {
-        $opts = $this->parseOpts($name);
-        $class = $opts['type'];
-
-        return new $class($name, $opts);
-    }
-
-    /**
-     * @param  mixed  $name
-     */
-    private function parseOpts($name)
-    {
         $opts = $this->attrs[$name];
 
         // Allow passing a bare string for the type.
@@ -178,11 +167,22 @@ class Attrs implements IteratorAggregate
             unset($opts[key($opts)]);
         }
 
-        $opts = array_merge($opts, [
-            'metadata' => $this->metadata,
-        ]);
+        $opts = $this->parseType($opts);
 
-        return $this->parseType($opts);
+        // We want to eventually build up the type's child if it
+        // has one. Let's parse it out as well.
+        if (!empty($opts['each'])) {
+            // Build up the child type first, so the parent
+            // can have access to it as soon as its constructed.
+            $opts['each'] = new $opts['each']([
+                'metadata' => $this->metadata,
+            ]);
+        }
+
+        // Build up the type
+        return new $opts['type']($name, array_merge($opts, [
+            'metadata' => $this->metadata,
+        ]));
     }
 
     /**

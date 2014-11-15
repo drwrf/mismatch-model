@@ -11,6 +11,7 @@ class AttrsTest extends \PHPUnit_Framework_TestCase
         $this->metadata = Mockery::mock('Mismatch\Metadata');
         $this->subject = new Attrs($this->metadata);
         $this->subject->set('integer', 'Integer');
+        $this->subject->set('set', 'Set[Integer]');
     }
 
     /**
@@ -36,5 +37,20 @@ class AttrsTest extends \PHPUnit_Framework_TestCase
         $attr = $this->subject->get('integer');
 
         $this->assertInstanceOf('Mismatch\Model\Attr\Integer', $attr);
+    }
+
+    public function test_get_setsName()
+    {
+        $attr = $this->subject->get('integer');
+        $this->assertEquals('integer', $attr->name);
+        $this->assertEquals('integer', $attr->key);
+    }
+
+    public function test_get_withSet()
+    {
+        $attr = $this->subject->get('set');
+
+        $this->assertInstanceOf('Mismatch\Model\Attr\Set', $attr);
+        $this->assertInstanceOf('Mismatch\Model\Attr\Integer', $attr->each);
     }
 }
