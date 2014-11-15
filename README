@@ -32,8 +32,8 @@
 
               public function init($m)
               {
-                $m->id        = 'Primary';
-                $m->name      = 'String';
-                $m->email     = 'Email';
+                $m->id    = 'Primary';
+                $m->name  = 'String';
+                $m->email = 'Email';
               }
             }
