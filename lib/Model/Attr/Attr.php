@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of Mismatch.
+
  *
  * @author   ♥ <hi@drwrf.com>
  * @license  MIT
@@ -54,6 +54,13 @@ abstract class Attr implements AttrInterface
     protected $serialize = AttrInterface::SERIALIZE_NONE;
 
     /**
+     * A type for each value in the set, in the case of proxies.
+     *
+     * @var  null|Mismatch\Model\Attr\AttrInterface
+     */
+    protected $each;
+
+    /**
      * The metadata of the model owning this attribute.
      *
      * @var  Mismatch\Model\Metadata
@@ -77,5 +84,16 @@ abstract class Attr implements AttrInterface
         foreach ($opts as $key => $value) {
             $this->$key = $value;
         }
+    }
+
+    /**
+     * Provides read-only access to properties.
+     *
+     * @param  string
+     * @return mixed
+     */
+    public function __get($name)
+    {
+        return $this->$name;
     }
 }
