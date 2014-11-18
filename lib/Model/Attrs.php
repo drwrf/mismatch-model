@@ -197,7 +197,7 @@ class Attrs implements IteratorAggregate
             throw new InvalidArgumentException();
         }
 
-        $pattern = "/^(?<type>[\w\\\]+)(?<null>\?)?$/";
+        $pattern = "/^(?<type>[\w\\\]+)(\[(?<each>[\w\\\]+)\])?(?<null>\?)?$/";
 
         if (false === preg_match($pattern, $opts['type'], $matches)) {
             throw new InvalidArgumentException();
@@ -210,6 +210,13 @@ class Attrs implements IteratorAggregate
         // the end of a string indicates the type is nullable.
         if (!empty($matches['null'])) {
             $opts['nullable'] = true;
+        }
+
+        // Parse strings like "Foo[Bar]" to be nested types.
+        // We'll allow the parent type to figure out how to deal
+        // with that nested type.
+        if (!empty($matches['each'])) {
+            $opts['each'] = $matches['each'];
         }
 
         return $opts;
