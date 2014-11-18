@@ -8,9 +8,9 @@
  */
 namespace Mismatch\Model;
 
+use Mismatch\Model\Exception\MissingAttrsException;
 use Pimple\Container;
 use ReflectionClass;
-use BadMethodCallException;
 
 /**
  * Metadata is the core of all Mismatch models.
@@ -131,6 +131,10 @@ class Metadata extends Container
      */
     public function __get($name)
     {
+        if (!isset($this['attrs'])) {
+            throw new MissingAttrsException($this->getClass());
+        }
+
         return $this['attrs']->get($name);
     }
 
@@ -143,11 +147,7 @@ class Metadata extends Container
     public function __set($name, $type)
     {
         if (!isset($this['attrs'])) {
-            throw new BadMethodCallException(
-                'You must set an "attrs" key on your metadata before trying ' .
-                'to add attributes. This may be as simple as adding a ' .
-                '"use Mismatch\Model" or ensuring that you have used it ' .
-                'before another trait that requires the "attrs" key.');
+            throw new MissingAttrsException($this->getClass());
         }
 
         $this['attrs']->set($name, $type);

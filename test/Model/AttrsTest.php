@@ -9,13 +9,16 @@ class AttrsTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->metadata = Mockery::mock('Mismatch\Metadata');
+        $this->metadata->shouldReceive('getClass')
+            ->andReturn('User');
+
         $this->subject = new Attrs($this->metadata);
         $this->subject->set('integer', 'Integer');
         $this->subject->set('set', 'Set[Integer]');
     }
 
     /**
-     * @expectedException InvalidArgumentException
+     * @expectedException Mismatch\Model\Exception\InvalidAttrException
      */
     public function test_get_invalidAttr()
     {
@@ -58,11 +61,13 @@ class AttrsTest extends \PHPUnit_Framework_TestCase
 
     public function test_get_typeCallback()
     {
-        Attrs::registerType('Callback', function() {
-            return 'worked!';
+        $mock = Mockery::mock('Mismatch\Model\Attr\AttrInterface');
+
+        Attrs::registerType('Callback', function() use ($mock) {
+            return $mock;
         });
 
         $this->subject->set('callback', 'Callback');
-        $this->assertEquals('worked!', $this->subject->get('callback'));
+        $this->assertSame($mock, $this->subject->get('callback'));
     }
 }

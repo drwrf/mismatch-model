@@ -2,8 +2,6 @@
 
 namespace Mismatch;
 
-use Mismatch\Exception\UnknownAttrException;
-
 class ModelTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()

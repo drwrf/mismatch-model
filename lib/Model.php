@@ -12,7 +12,8 @@ use Mismatch\Model\Metadata;
 use Mismatch\Model\Dataset;
 use Mismatch\Model\Attrs;
 use Mismatch\Model\Attr\Primary;
-use InvalidArgumentException;
+use Mismatch\Model\Exception\MissingPkException;
+use Mismatch\Model\Exception\InvalidAttrException;
 
 /**
  * Adds model-like functionality to a class.
@@ -106,7 +107,7 @@ trait Model
                 }
             }
 
-            throw new DomainException();
+            throw new MissingPkException($m->getClass());
         };
     }
 
@@ -121,12 +122,19 @@ trait Model
     private $attrs;
 
     /**
+     * @var  Metadata
+     */
+    private $metadata;
+
+    /**
      * Constructor.
      *
      * @param   Dataset|array  $data
      */
     public function __construct($data = [])
     {
+        $this->metadata = static::metadata();
+
         if (!($data instanceof Dataset)) {
             $data = new Dataset($data);
         }
@@ -250,7 +258,7 @@ trait Model
      */
     public function id()
     {
-        return $this->read(static::metadata()['pk']->name);
+        return $this->read($this->metadata['pk']->name);
     }
 
     /**
@@ -332,12 +340,12 @@ trait Model
     private function attr($name)
     {
         if (!$this->attrs) {
-            $this->attrs = static::metadata()['attrs'];
+            $this->attrs = $this->metadata['attrs'];
         }
 
         try {
             return $this->attrs->get($name);
-        } catch (InvalidArgumentException $e) {
+        } catch (InvalidAttrException $e) {
             return null;
         }
     }

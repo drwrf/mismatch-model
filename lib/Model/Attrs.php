@@ -9,7 +9,8 @@
 namespace Mismatch\Model;
 
 use Mismatch\Model\Attr\AttrInterface;
-use InvalidArgumentException;
+use Mismatch\Model\Exception\InvalidTypeException;
+use Mismatch\Model\Exception\InvalidAttrException;
 use IteratorAggregate;
 use ArrayIterator;
 
@@ -111,12 +112,13 @@ class Attrs implements IteratorAggregate
      *
      * @param   string  $name
      * @return  AttrInterface
-     * @throws  InvalidArgumentException
+     * @throws  InvalidAttrException
+     * @throws  InvalidTypeException
      */
     public function get($name)
     {
         if (!$this->has($name)) {
-            throw new InvalidArgumentException();
+            throw new InvalidAttrException($this->metadata->getClass(), $name);
         }
 
         if (!($this->attrs[$name] instanceof AttrInterface)) {
@@ -173,34 +175,40 @@ class Attrs implements IteratorAggregate
             unset($opts[key($opts)]);
         }
 
-        $opts = array_merge($this->parseType($opts), [
+        if (empty($opts['type'])) {
+            throw new InvalidTypeException($this->metadata->getClass(), $name, $opts['type']);
+        }
+
+        $opts = array_merge($this->parseType($name, $opts), [
             'metadata' => $this->metadata
         ]);
 
         // Allow types to be factories that can generate instances.
         // This allows more robust customization than simple instances.
         if (is_callable($opts['type'])) {
-            return call_user_func($opts['type'], $name, $opts);
+            $type = call_user_func($opts['type'], $name, $opts);
+        } else {
+            $type = new $opts['type']($name, $opts);
         }
 
-        // Build up the type
-        return new $opts['type']($name, $opts);
+        if (!$type instanceof AttrInterface) {
+            throw new InvalidTypeException($this->metadata->getClass(), $name, $type);
+        }
+
+        return $type;
     }
 
     /**
-     * @param   array $opts
+     * @param   string  $name
+     * @param   array   $opts
      * @return  array
      */
-    private function parseType(array $opts)
+    private function parseType($name, array $opts)
     {
-        if (empty($opts['type'])) {
-            throw new InvalidArgumentException();
-        }
-
         $pattern = "/^(?<type>[\w\\\]+)(\[(?<each>[\w\\\]+)\])?(?<null>\?)?$/";
 
         if (false === preg_match($pattern, $opts['type'], $matches)) {
-            throw new InvalidArgumentException();
+            throw new InvalidTypeException($this->metadata->getClass(), $name, $opts['type']);
         }
 
         // Resolve the type with the already declared types.

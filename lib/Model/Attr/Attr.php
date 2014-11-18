@@ -8,8 +8,6 @@
  */
 namespace Mismatch\Model\Attr;
 
-use InvalidArgumentException;
-
 /**
  * A helpful base class for all attributes.
  */
