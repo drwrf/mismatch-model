@@ -301,35 +301,16 @@ trait Model
     }
 
     /**
-     * Returns whether or not the value has changed on the model.
+     * Returns the underlying dataset for the model.
      *
-     * @param   string  $name
-     * @return  bool
-     */
-    public function changed($name)
-    {
-        return $this->data->changed($name);
-    }
-
-    /**
-     * Returns the original and changed value on a model.
+     * This is a leaky abstraction and should only be used
+     * by those who know what they're doing.
      *
-     * @param  string  $name
-     * @return [$old, $new]|null
+     * @return  Dataset
      */
-    public function diff($name)
+    public function dataset()
     {
-        return $this->data->diff($name);
-    }
-
-    /**
-     * Whether or not the model is persisted.
-     *
-     * @return  bool
-     */
-    public function isPersisted()
-    {
-        return $this->data->isPersisted();
+        return $this->data;
     }
 
     /**

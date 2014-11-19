@@ -115,21 +115,6 @@ class Dataset
     }
 
     /**
-     * Returns whether or not a value has changed.
-     *
-     * Interestingly, this will return true so long as the value
-     * has been written to, regardless of whether or not the value
-     * has already changed.
-     *
-     * @param   string  $name
-     * @return  bool
-     */
-    public function changed($name)
-    {
-        return array_key_exists($name, $this->changes);
-    }
-
-    /**
      * Returns the diff of a value.
      *
      * @param   string  $name
@@ -166,13 +151,22 @@ class Dataset
     }
 
     /**
-     * Returns whether or not the dataset has changes.
+     * Returns whether or not a value has changed.
      *
-     * @return bool
+     * Interestingly, this will return true so long as the value
+     * has been written to, regardless of whether or not the value
+     * has already changed.
+     *
+     * @param   string  $name
+     * @return  bool
      */
-    public function isChanged()
+    public function isChanged($name = null)
     {
-        return (bool) $this->changes;
+        if ($name === null) {
+            return (bool) $this->changes;
+        }
+
+        return array_key_exists($name, $this->changes);
     }
 
     /**
