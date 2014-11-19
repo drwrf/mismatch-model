@@ -49,4 +49,21 @@ class DatasetTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->subject->isChanged('original'));
         $this->assertFalse($this->subject->isChanged());
     }
+
+    public function test_isPersisted()
+    {
+        $this->subject->markPersisted();
+        $this->assertTrue($this->subject->isPersisted());
+        $this->assertFalse($this->subject->isDestroyed());
+        $this->assertFalse($this->subject->isChanged());
+    }
+
+    public function test_isDestroyed()
+    {
+        $this->subject->markPersisted();
+        $this->subject->markDestroyed();
+        $this->assertTrue($this->subject->isDestroyed());
+        $this->assertFalse($this->subject->isPersisted());
+        $this->assertFalse($this->subject->isChanged());
+    }
 }
