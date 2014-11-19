@@ -175,6 +175,7 @@ class Dataset
     public function markPersisted()
     {
         $this->persisted = true;
+        $this->destroyed = false;
 
         // The dataset is persisted, so turn all changes into
         // the new, canonical version of the data.
@@ -199,6 +200,7 @@ class Dataset
     public function markDestroyed()
     {
         $this->destroyed = true;
+        $this->persisted = false;
         $this->data = [];
         $this->changes = [];
 
