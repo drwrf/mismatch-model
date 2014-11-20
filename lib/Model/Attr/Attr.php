@@ -1,8 +1,6 @@
 <?php
 
 /**
-
- *
  * @author   ♥ <hi@drwrf.com>
  * @license  MIT
  */
