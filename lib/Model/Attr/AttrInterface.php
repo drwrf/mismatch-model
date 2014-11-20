@@ -14,14 +14,24 @@ namespace Mismatch\Model\Attr;
 interface AttrInterface
 {
     /**
-     * @const  int  Don't serialize the attribute.
+     * @const  bool  Don't serialize the attribute.
      */
-    const SERIALIZE_NONE = 0;
+    const SERIALIZE_NONE = false;
 
     /**
-     * @const  int  Serialize the friggin attribute!
+     * @const  bool  Serialize the friggin attribute!
      */
-    const SERIALIZE_VALUE = 1;
+    const SERIALIZE_VALUE = true;
+    
+    /**
+     * @const  string  Serialize before the model is persisted.
+     */
+    const SERIALIZE_PRE_PERSIST = 'pre-persist';
+    
+    /**
+     * @const  string  Serialize after the model is persisted.
+     */
+    const SERIALIZE_POST_PERSIST = 'post-persist';
 
     /**
      * Called when writing a value to the model in PHP land.
