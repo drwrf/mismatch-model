@@ -24,6 +24,11 @@ interface AttrInterface
     const SERIALIZE_VALUE = true;
 
     /**
+     * @const  bool  Serialize the attribute with the primary key
+     */
+    const SERIALIZE_PRIMARY = 'primary';
+
+    /**
      * @const  string  Serialize before the model is persisted.
      */
     const SERIALIZE_PRE_PERSIST = 'pre-persist';
