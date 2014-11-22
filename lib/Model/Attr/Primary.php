@@ -21,5 +21,5 @@ class Primary extends String
     /**
      * {@inheritDoc}
      */
-    protected $serialize = AttrInterface::SERIALIZE_NONE;
+    protected $serialize = AttrInterface::SERIALIZE_PRIMARY;
 }
