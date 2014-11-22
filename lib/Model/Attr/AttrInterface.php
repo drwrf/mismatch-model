@@ -22,12 +22,12 @@ interface AttrInterface
      * @const  bool  Serialize the friggin attribute!
      */
     const SERIALIZE_VALUE = true;
-    
+
     /**
      * @const  string  Serialize before the model is persisted.
      */
     const SERIALIZE_PRE_PERSIST = 'pre-persist';
-    
+
     /**
      * @const  string  Serialize after the model is persisted.
      */
