@@ -49,6 +49,29 @@ class DatasetTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($this->subject->diff('original'));
     }
 
+    public function test_diff_handlesUnpersisted()
+    {
+        $this->subject->write('original', true);
+        $this->assertEquals([null, true], $this->subject->diff('original'));
+    }
+
+    public function test_diff_handlesChanges()
+    {
+        $this->subject->write('original', false);
+        $this->subject->write('changed', true);
+        $this->assertEquals([true, false], $this->subject->diff('original'));
+        $this->assertEquals([null, true], $this->subject->diff('changed'));
+    }
+
+    public function test_diff_handlesChanges_whenPersisted()
+    {
+        $this->subject->markPersisted();
+        $this->subject->write('original', false);
+        $this->subject->write('changed', true);
+        $this->assertEquals([true, false], $this->subject->diff('original'));
+        $this->assertEquals([null, true], $this->subject->diff('changed'));
+    }
+
     public function test_write_ignoresSameValues()
     {
         $this->subject->write('original', true);
