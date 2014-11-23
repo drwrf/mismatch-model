@@ -125,7 +125,7 @@ class Dataset
         // Return no diff when nothing has changed and the model isn't
         // persisted. This is useful for new models who need to save
         // initial values even if they weren't technically "changed".
-        if ($this->persisted && !$this->changed($name)) {
+        if ($this->persisted && !$this->isChanged($name)) {
             return null;
         }
 

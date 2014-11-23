@@ -34,12 +34,19 @@ class DatasetTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->subject->read('original'));
     }
 
-    public function test_change_worksForDifferentValues()
+    public function test_isChanged_worksForDifferentValues()
     {
         $this->subject->write('original', false);
         $this->assertFalse($this->subject->isChanged('invalid'));
         $this->assertTrue($this->subject->isChanged('original'));
         $this->assertTrue($this->subject->isChanged());
+    }
+
+    public function test_diff_ignoresPersistedAndUnchanged()
+    {
+        $this->subject->markPersisted();
+        $this->subject->write('original', true);
+        $this->assertNull($this->subject->diff('original'));
     }
 
     public function test_write_ignoresSameValues()
