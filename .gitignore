@@ -1,2 +1,6 @@
+# Composer files
 vendor
-doc
+
+# Sphinx documentation
+doc/_build
+doc/_static
