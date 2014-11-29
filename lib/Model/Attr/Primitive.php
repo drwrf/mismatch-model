@@ -27,7 +27,7 @@ abstract class Primitive extends Attr
             return $this->nullable ? null : $this->getDefault($model);
         }
 
-        return $this->cast($value);
+        return $this->castToPHP($value);
     }
 
     /**
@@ -39,7 +39,7 @@ abstract class Primitive extends Attr
             return null;
         }
 
-        return $this->cast($value);
+        return $this->castToPHP($value);
     }
 
     /**
@@ -51,7 +51,7 @@ abstract class Primitive extends Attr
             return $this->nullable ? null : $this->getDefault($model);
         }
 
-        return $this->cast($new);
+        return $this->castToNative($new);
     }
 
     /**
@@ -63,7 +63,7 @@ abstract class Primitive extends Attr
             return null;
         }
 
-        return $this->cast($value);
+        return $this->castToPHP($value);
     }
 
     /**
@@ -73,6 +73,28 @@ abstract class Primitive extends Attr
      * @return mixed
      */
     abstract public function cast($value);
+
+    /**
+     * Hook for casting to the PHP type.
+     *
+     * @param   mixed  $value
+     * @return  mixed
+     */
+    protected function castToPHP($value)
+    {
+        return $this->cast($value);
+    }
+
+    /**
+     * Hook for casting to the native type.
+     *
+     * @param   mixed  $value
+     * @return  mixed
+     */
+    protected function castToNative($value)
+    {
+        return $this->cast($value);
+    }
 
     /**
      * Should return the default value for the type.
