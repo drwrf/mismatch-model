@@ -59,6 +59,18 @@ class AttrsTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($attr1, $attr2);
     }
 
+    public function test_get_dashedName()
+    {
+        $mock = Mockery::mock('Mismatch\Model\Attr\AttrInterface');
+
+        Attrs::registerType('dashed-name', function() use ($mock) {
+            return $mock;
+        });
+
+        $this->subject->set('dashed', 'dashed-name');
+        $this->assertSame($mock, $this->subject->get('dashed'));
+    }
+
     public function test_get_typeCallback()
     {
         $mock = Mockery::mock('Mismatch\Model\Attr\AttrInterface');

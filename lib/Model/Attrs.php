@@ -205,7 +205,7 @@ class Attrs implements IteratorAggregate
      */
     private function parseType($name, array $opts)
     {
-        $pattern = "/^(?<type>[\w\\\]+)(\[(?<each>[\w\\\]+)\])?(?<null>\?)?$/";
+        $pattern = "/^(?<type>[\w\\\-]+)(\[(?<each>[\w\\\]+)\])?(?<null>\?)?$/";
 
         if (false === preg_match($pattern, $opts['type'], $matches)) {
             throw new InvalidTypeException($this->metadata->getClass(), $name, $opts['type']);
