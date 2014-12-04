@@ -8,6 +8,8 @@
  */
 namespace Mismatch\Model\Attr;
 
+use BadMethodCallException;
+
 /**
  * A helpful base class for attributes that represent primitive types.
  */
@@ -67,20 +69,12 @@ abstract class Primitive extends Attr
     }
 
     /**
-     * Should return the value casted to an appropriate type.
-     *
-     * @param  mixed  $value
-     * @return mixed
-     */
-    abstract public function cast($value);
-
-    /**
      * Hook for casting to the PHP type.
      *
      * @param   mixed  $value
      * @return  mixed
      */
-    protected function castToPHP($value)
+    public function castToPHP($value)
     {
         return $this->cast($value);
     }
@@ -91,9 +85,23 @@ abstract class Primitive extends Attr
      * @param   mixed  $value
      * @return  mixed
      */
-    protected function castToNative($value)
+    public function castToNative($value)
     {
         return $this->cast($value);
+    }
+
+    /**
+     * Should return the value casted to an appropriate type.
+     *
+     * @param  mixed  $value
+     * @return mixed
+     */
+    protected function cast($value)
+    {
+        throw new BadMethodCallException(
+            'Primitive attributes must override either "cast" '.
+            'or both "castToPHP" and "castToNative" to properly '.
+            'implement the interface');
     }
 
     /**
