@@ -69,7 +69,7 @@ class Mock
 
     public static function init($m)
     {
-        $m->id = 'Primary';
+        $m->id = 'primary';
     }
 
     public function getFullName()

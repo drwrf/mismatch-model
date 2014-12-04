@@ -13,8 +13,8 @@ class AttrsTest extends \PHPUnit_Framework_TestCase
             ->andReturn('User');
 
         $this->subject = new Attrs($this->metadata);
-        $this->subject->set('integer', 'Integer');
-        $this->subject->set('set', 'Set[Integer]');
+        $this->subject->set('integer', 'integer');
+        $this->subject->set('set', 'set[integer]');
     }
 
     /**
@@ -63,11 +63,11 @@ class AttrsTest extends \PHPUnit_Framework_TestCase
     {
         $mock = Mockery::mock('Mismatch\Model\Attr\AttrInterface');
 
-        Attrs::registerType('Callback', function() use ($mock) {
+        Attrs::registerType('callback', function() use ($mock) {
             return $mock;
         });
 
-        $this->subject->set('callback', 'Callback');
+        $this->subject->set('callback', 'callback');
         $this->assertSame($mock, $this->subject->get('callback'));
     }
 }

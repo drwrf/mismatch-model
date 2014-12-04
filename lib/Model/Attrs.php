@@ -23,13 +23,13 @@ class Attrs implements IteratorAggregate
      * @var  array
      */
     private static $types = [
-        'Primary' => 'Mismatch\\Model\\Attr\\Primary',
-        'Integer' => 'Mismatch\\Model\\Attr\\Integer',
-        'Float'   => 'Mismatch\\Model\\Attr\\Float',
-        'String'  => 'Mismatch\\Model\\Attr\\String',
-        'Boolean' => 'Mismatch\\Model\\Attr\\Boolean',
-        'Time'    => 'Mismatch\\Model\\Attr\\Time',
-        'Set'     => 'Mismatch\\Model\\Attr\\Set',
+        'primary' => 'Mismatch\\Model\\Attr\\Primary',
+        'integer' => 'Mismatch\\Model\\Attr\\Integer',
+        'float'   => 'Mismatch\\Model\\Attr\\Float',
+        'string'  => 'Mismatch\\Model\\Attr\\String',
+        'boolean' => 'Mismatch\\Model\\Attr\\Boolean',
+        'time'    => 'Mismatch\\Model\\Attr\\Time',
+        'set'     => 'Mismatch\\Model\\Attr\\Set',
     ];
 
     /**
