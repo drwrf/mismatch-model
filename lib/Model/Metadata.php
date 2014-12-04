@@ -150,7 +150,12 @@ class Metadata extends Container
             throw new MissingAttrsException($this->getClass());
         }
 
-        $this['attrs']->set($name, $type);
+        // We extend rather than simply setting so that we can defer
+        // instantiation of the actual Attrs object until as late as
+        // possible. This gives others opportunities to modify it as well.
+        $this->extend('attrs', function ($attrs) use ($name, $type) {
+            return $attrs->set($name, $type);
+        });
     }
 
     /**
